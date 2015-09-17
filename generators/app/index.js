@@ -109,6 +109,22 @@ module.exports = yeoman.generators.Base.extend({
             }.bind(this));
         },
 
+        askForGitLab: function () {
+          var done = this.async();
+
+          var prompts = [{
+            type: 'confirm',
+            name: 'gitlab',
+            message: 'Would you like to enable GitLab CI?',
+            default: true,
+          }];
+
+          this.prompt(prompts, function (props) {
+            this.gitlab = props.gitlab;
+            done();
+          }.bind(this));
+        },
+
         askForCertPath: function () {
             var done = this.async();
             var travis = this.travis;
@@ -216,6 +232,19 @@ module.exports = yeoman.generators.Base.extend({
             if (this.certPath) {
                 this.fs.copy(this.certPath, this.destinationPath('script/certificates/development.p12'));
             }
+        },
+
+        gitlab: function () {
+          if (!this.gitlab) {
+              return;
+          }
+          var files = [
+            '.gitlab-ci.yml',
+            'script/cibuild',
+          ];
+          files.forEach(function (entry) {
+            this.fs.copy(this.templatePath(entry), this.destinationPath(entry));
+          }.bind(this));
         },
 
         cocoapods: function () {
