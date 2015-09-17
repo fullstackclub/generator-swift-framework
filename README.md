@@ -27,10 +27,10 @@ generator-swift-framework is used to create a Xcode [Embedded Framework](https:/
 To install generator-swift-framework from npm, run:
 
 ```bash
-npm install -g generator-swift-framework
+npm install -g git://github.com/fullstackclub/generator-swift-framework.git
 ```
 
-Then, initiate the generator via [Yeoman][]:
+Then, initiate the generator via [Yeoman][] in your project directory:
 
 ```bash
 yo swift-framework
